@@ -68,6 +68,16 @@
                     android:padding="@dimen/_18sdp"
                     android:orientation="vertical">
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data Partner"
+                            android:textSize="@dimen/_13sdp"/>
+                    </LinearLayout>
+                    <LinearLayout
                         android:id="@+id/nama_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,56 +89,122 @@
                             android:layout_height="wrap_content"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/nama_input"
+                                android:id="@+id/nama_partner"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text"
                                 android:maxLines="1"
-                                android:hint="Your Name"/>
+                                android:hint="Nama Partner"/>
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/email_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="@dimen/_8sdp">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/email_input_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/email_input"
+                                android:id="@+id/nama_pemilik"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:inputType="text"
                                 android:maxLines="1"
-                                android:hint="Email"/>
+                                android:hint="Nama Pemilik"/>
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                     <LinearLayout
-                        android:id="@+id/password_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="@dimen/_8sdp">
                         <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/password_input_layout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            app:passwordToggleEnabled="true"
-                            >
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                             <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/password_input"
+                                android:id="@+id/no_hp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Password"
-                                android:inputType="textPassword"
-                                />
+                                android:inputType="phone"
+                                android:maxLines="1"
+                                android:hint="No HP"/>
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="@dimen/_8sdp">
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/alamat"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_68sdp"
+                                android:hint="Alamat"
+                                android:inputType="textMultiLine"
+                                android:maxLines="3" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Data Login"
+                            android:textSize="@dimen/_13sdp"/>
+                        <LinearLayout
+                            android:id="@+id/email_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_8sdp">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/email_input_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/email_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:inputType="textEmailAddress"
+                                    android:maxLines="1"
+                                    android:hint="Email"/>
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/password_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_8sdp">
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/password_input_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                app:passwordToggleEnabled="true"
+                                >
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/password_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Password"
+                                    android:inputType="textPassword"
+                                    />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
                     <LinearLayout
                         android:id="@+id/btn_layout"
                         android:layout_width="match_parent"
