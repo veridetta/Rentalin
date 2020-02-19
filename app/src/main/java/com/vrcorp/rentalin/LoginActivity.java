@@ -145,7 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                         // menyimpan login ke session
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putBoolean("session_status", true);
-                        editor.putString("id", "id");
+                        editor.putString("id", id);
                         editor.commit();
                         //Toast.makeText(getApplicationContext(),
                           //      "Selamat datang ", Toast.LENGTH_LONG).show();
