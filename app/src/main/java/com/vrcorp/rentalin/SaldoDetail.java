@@ -1,22 +1,20 @@
-package com.vrcorp.rentalin.layout;
+package com.vrcorp.rentalin;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -27,66 +25,81 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.vrcorp.rentalin.MainActivity;
-import com.vrcorp.rentalin.R;
-import com.vrcorp.rentalin.RegisterActivity;
-import com.vrcorp.rentalin.adapter.OrderanAdapter;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialog;
+import com.shashank.sony.fancygifdialoglib.FancyGifDialogListener;
+import com.vrcorp.rentalin.adapter.HistoryAdapter;
 import com.vrcorp.rentalin.model.ModelUtama;
 import com.vrcorp.rentalin.server.Url;
+import com.yarolegovich.lovelydialog.LovelyTextInputDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
 
+public class SaldoDetail extends AppCompatActivity {
 
-public class OrderanFragment extends Fragment {
+    Button btn_cairkan;
+    TextView saldo;
     ProgressDialog pDialog;
     private static final String TAG = MainActivity.class.getSimpleName();
     SharedPreferences sharedpreferences;
     int success;
-    String namaMobil, idOrderan, status, cekin, cekout, supir, pendapatan, string_id;
+    String namaMobil, idOrderan, status, cekin, cekout, supir, pendapatan, string_id, totalSaldo;
     List<ModelUtama> dbList;
     List<ModelUtama> modelList = new ArrayList<ModelUtama>();
-    private OrderanAdapter adapter;
+    private HistoryAdapter adapter;
     LinearLayout data, noData;
     RecyclerView order_list;
-    View view;
-
-    public OrderanFragment() {
-        // Required empty public constructor
-    }
-
-    public static OrderanFragment newInstance(String param1, String param2) {
-        OrderanFragment fragment = new OrderanFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_orderan, container, false);
-        noData = view.findViewById(R.id.no_data);
-        noData.setVisibility(View.GONE);
-        sharedpreferences = getActivity().getSharedPreferences("rentalinPartner", Context.MODE_PRIVATE);
+        setContentView(R.layout.activity_saldo_detail);
+        saldo = findViewById(R.id.saldo);
+        btn_cairkan = findViewById(R.id.btn_cairkan);
+        sharedpreferences = SaldoDetail.this.getSharedPreferences("rentalinPartner", Context.MODE_PRIVATE);
         string_id = sharedpreferences.getString("id", null);
-        getOrderan(string_id, (ViewGroup) view);
-        return view;
+        getOrderan(string_id,"0");
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+        btn_cairkan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    new LovelyTextInputDialog(SaldoDetail.this, R.style.TintTheme)
+                        .setTopColorRes(R.color.blue_400)
+                        .setTitle("Konfirmasi Penarikan Min. 100000")
+                        .setMessage("Masukkan Jumlah Uang (hanya angka)")
+                        .setIcon(R.drawable.formuser)
+                        .setInputFilter("Masukkan", new LovelyTextInputDialog.TextFilter() {
+                            @Override
+                            public boolean check(String text) {
+                                if(Integer.parseInt(text)<100000){
+                                    Toast.makeText(SaldoDetail.this, "Minimal 100000", Toast.LENGTH_SHORT).show();
+                                }else{
+                                    getOrderan(string_id,text);
+                                }
+                                return text.matches("\\w+");
+                            }
+                        })
+                        .setConfirmButton(android.R.string.ok, new LovelyTextInputDialog.OnTextInputConfirmListener() {
+                            @Override
+                            public void onTextInputConfirmed(String text) {
+                                //Toast.makeText(SaldoDetail.this, text, Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .show();
+
+            }
+        });
     }
-    private void getOrderan(final String xid, final ViewGroup view){
-        final String urll = Url.URL + "getorderan.php?id="+xid;
-        RequestQueue requestQueue= Volley.newRequestQueue(getContext());
-        pDialog = new ProgressDialog(getActivity());
+    private void getOrderan(final String xid, final String jumlah){
+        final String urll = Url.URL + "gethistory.php?id="+xid+"&&jumlah="+jumlah;
+        RequestQueue requestQueue= Volley.newRequestQueue(SaldoDetail.this);
+        pDialog = new ProgressDialog(SaldoDetail.this);
         pDialog.setCancelable(false);
         pDialog.setMessage("Memuat data ....");
         pDialog.show();
@@ -100,8 +113,8 @@ public class OrderanFragment extends Fragment {
                 try{
                     JSONObject jsonObject=new JSONObject(response);
                     JSONArray jArray = jsonObject.getJSONArray("content");
+                    totalSaldo = jsonObject.getString("saldo");
                     if(jsonObject.getInt("total")>0){
-                        noData.setVisibility(View.GONE);
                         for(int i=0;i<jArray.length();i++){
                             JSONObject jsonObject1=jArray.getJSONObject(i);
                             idOrderan=jsonObject1.getString("idOrderan");
@@ -125,10 +138,18 @@ public class OrderanFragment extends Fragment {
                         if(pDialog.isShowing()){
                             pDialog.dismiss();
                         }
+                        //format harga
+                        DecimalFormatSymbols symbols = new DecimalFormatSymbols();
+                        symbols.setGroupingSeparator('.');
+                        symbols.setDecimalSeparator(',');
+
+                        DecimalFormat decimalFormat = new DecimalFormat("Rp #,###", symbols);
+                        String prezzo = decimalFormat.format(Integer.parseInt(totalSaldo));
+                        saldo.setText(prezzo);
                         dbList = modelList;
-                        order_list =  view.findViewById(R.id.rc_order);
-                        adapter = new OrderanAdapter(getContext(), dbList);
-                        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(),1);
+                        order_list =  findViewById(R.id.rc_riwayat);
+                        adapter = new HistoryAdapter(SaldoDetail.this, dbList);
+                        RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SaldoDetail.this,1);
                         order_list.setLayoutManager(mLayoutManager);
                         //konjugasi_list.setItemAnimator(new DefaultItemAnimator());
                         //DividerItemDecoration decoration = new DividerItemDecoration(getApplicationContext(), VERTICAL);
@@ -138,7 +159,6 @@ public class OrderanFragment extends Fragment {
                         if(pDialog.isShowing()) {
                             pDialog.dismiss();
                         }
-                        noData.setVisibility(View.VISIBLE);
                     }
                 }catch (JSONException e){e.printStackTrace(); }
 
@@ -150,8 +170,8 @@ public class OrderanFragment extends Fragment {
                 if(pDialog.isShowing()){
                     pDialog.dismiss();
                 }
-                Toast.makeText(getActivity(), "Silahkan coba lagi", Toast.LENGTH_LONG).show();
-                getActivity().finish();
+                Toast.makeText(SaldoDetail.this, "Silahkan coba lagi", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
         int socketTimeout = 30000;
@@ -159,5 +179,4 @@ public class OrderanFragment extends Fragment {
         stringRequest.setRetryPolicy(policy);
         requestQueue.add(stringRequest);
     }
-
 }

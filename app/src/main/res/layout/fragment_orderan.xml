@@ -11,15 +11,21 @@
         android:orientation="vertical">
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <TextView
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/rc_order"/>
+        <LinearLayout
             android:id="@+id/no_data"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:textColor="@color/grey_600"
-            android:textSize="@dimen/_20sdp"
-            android:text="Belum ada data"/>
+            android:layout_height="@dimen/_550sdp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_600"
+                android:textSize="@dimen/_20sdp"
+                android:text="Belum ada data"/>
+        </LinearLayout>
     </LinearLayout>
 </FrameLayout>

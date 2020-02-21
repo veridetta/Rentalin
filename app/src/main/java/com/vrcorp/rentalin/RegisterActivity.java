@@ -99,8 +99,8 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     // Check for error node in json
+                    success = jObj.getInt("success");
                     if (success == 1) {
-                        success = jObj.getInt("success");
                         String id = jObj.getString("id");
                         Log.e("Successfully Register!", jObj.toString());
                         Toast.makeText(getApplicationContext(),

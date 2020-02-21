@@ -137,8 +137,8 @@ public class AkunFragment extends Fragment {
                 try {
                     JSONObject jObj = new JSONObject(response);
                     // Check for error node in json
+                    success = jObj.getInt("success");
                     if (success == 1) {
-                        success = jObj.getInt("success");
                         String id = jObj.getString("id");
                         //Log.e("Successfully Register!", jObj.toString());
                         SharedPreferences.Editor editor = sharedpreferences.edit();
@@ -207,7 +207,6 @@ public class AkunFragment extends Fragment {
                 try{
                     JSONObject jsonObject=new JSONObject(response);
                     JSONArray jArray = jsonObject.getJSONArray("content");
-
                         for(int i=0;i<jArray.length();i++){
                             JSONObject jsonObject1=jArray.getJSONObject(i);
                             gnamaPartner=jsonObject1.getString("namaPartner");
@@ -216,7 +215,6 @@ public class AkunFragment extends Fragment {
                             gnohp= jsonObject1.getString("nohp");
                             gpassword =jsonObject1.getString("password");
                         }
-
                         namaPartner.setText(gnamaPartner);
                         namaPemilik.setText(gnamaPemilik);
                         alamat.setText(galamat);
@@ -224,7 +222,6 @@ public class AkunFragment extends Fragment {
                         if(pDialog.isShowing()){
                             pDialog.dismiss();
                         }
-
 
                 }catch (JSONException e){e.printStackTrace(); }
 

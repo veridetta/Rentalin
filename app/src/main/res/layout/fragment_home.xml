@@ -41,6 +41,7 @@
                         android:gravity="center_vertical"
                         android:orientation="vertical">
                         <TextView
+                            android:id="@+id/tNamaPartner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_19sdp"
@@ -48,6 +49,7 @@
                             android:textStyle="bold"
                             android:textColor="@color/white"/>
                         <TextView
+                            android:id="@+id/tIdPartner"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/_13sdp"
@@ -83,6 +85,7 @@
                         android:padding="@dimen/_15sdp"
                         >
                         <LinearLayout
+                            android:id="@+id/ly_kendaraan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -173,6 +176,7 @@
                             </LinearLayout>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/ly_supir"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -303,12 +307,14 @@
                                     android:layout_height="@dimen/_15sdp"
                                     android:background="@drawable/dot_blue"/>
                                 <LinearLayout
+                                    android:id="@+id/jumlah_mobil"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:foregroundGravity="center"
                                     android:orientation="vertical">
                                     <TextView
+                                        android:id="@+id/jMobil"
                                         android:layout_width="match_parent"
                                         android:layout_gravity="center"
                                         android:gravity="center"
@@ -354,12 +360,14 @@
                                     android:layout_height="@dimen/_15sdp"
                                     android:background="@drawable/dotgreen"/>
                                 <LinearLayout
+                                    android:id="@+id/jumlah_supir"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:gravity="center"
                                     android:foregroundGravity="center"
                                     android:orientation="vertical">
                                     <TextView
+                                        android:id="@+id/jSupir"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="10"
@@ -405,6 +413,7 @@
                                 android:background="@drawable/wallet"/>
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/jumlah_saldo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="center|left"
@@ -412,6 +421,7 @@
                             android:foregroundGravity="center|left"
                             android:orientation="vertical">
                             <TextView
+                                android:id="@+id/totalSaldo"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Rp. 3.500.000"
