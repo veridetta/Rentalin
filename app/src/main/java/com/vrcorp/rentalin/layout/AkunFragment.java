@@ -50,7 +50,7 @@ import java.util.Map;
 public class AkunFragment extends Fragment {
     EditText namaPartner, namaPemilik, nohp, alamat, password;
     ProgressDialog pDialog;
-    private String url = Url.URL + "ubahprofil.php";
+    private String url = Url.URL + "ubah`profil.php";
     private String urlGet = Url.URL + "getprofil.php";
     private static final String TAG = RegisterActivity.class.getSimpleName();
     SharedPreferences sharedpreferences;

@@ -86,7 +86,7 @@ public class OrderanAdapter extends RecyclerView.Adapter<OrderanAdapter.MyViewHo
         holder.cekout.setText("Cek out: "+student.getCekout());
         holder.supir.setText("Supir: "+student.getSupir());
         holder.namaMobil.setText(student.getNamamobil());
-        if(student.getStatus().equals("Menunggu Konfirmasi Rental")){
+        if(student.getStatus().equals("Menunggu Konfirmasi Partner")){
             holder.ly_button.setVisibility(View.VISIBLE);
         }else{
             holder.ly_button.setVisibility(View.GONE);
@@ -112,7 +112,7 @@ public class OrderanAdapter extends RecyclerView.Adapter<OrderanAdapter.MyViewHo
         return notesList.size();
     }
     private void postAction(final String xid, final String action){
-        final String urll = Url.URL + "actoinorderan.php?id="+xid+"&&action="+action;
+        final String urll = Url.URL + "actionorderan.php?id="+xid+"&&action="+action;
         RequestQueue requestQueue= Volley.newRequestQueue(context);
         pDialog = new ProgressDialog(context);
         pDialog.setCancelable(false);
@@ -132,8 +132,8 @@ public class OrderanAdapter extends RecyclerView.Adapter<OrderanAdapter.MyViewHo
                         }
                         Toast.makeText(context, "Proses berhasil", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(context, MainActivity.class);
-                        context.startActivity(intent);
                         Log.e(MainActivity.class.getSimpleName(), "Auth Response: " +response);
+                        context.startActivity(intent);
                     }else{
                         if(pDialog.isShowing()) {
                             pDialog.dismiss();
