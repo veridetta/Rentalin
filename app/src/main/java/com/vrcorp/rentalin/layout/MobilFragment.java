@@ -101,7 +101,8 @@ public class MobilFragment extends Fragment {
                 try{
                     JSONObject jsonObject=new JSONObject(response);
                     JSONArray jArray = jsonObject.getJSONArray("content");
-                    if(jArray.length()>0){
+                    String Ttotal = jsonObject.getString("total");
+                    if(Integer.parseInt(Ttotal)>0){
                         kosong.setVisibility(View.GONE);
                         for(int i=0;i<jArray.length();i++){
                             JSONObject jsonObject1=jArray.getJSONObject(i);
